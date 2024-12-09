@@ -5,7 +5,7 @@ import shutil
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyzbar.pyzbar import decode
-#from PIL import Image
+from PIL import Image
 
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
