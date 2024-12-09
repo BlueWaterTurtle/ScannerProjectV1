@@ -13,6 +13,7 @@ class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
         print(f"New file created: {event.src_path}")
         destination_dir = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
+        finished_dir = 'C:\\Users\\Public\\Documents\\WavesFinished'  # Define the finished directory
         os.makedirs(destination_dir, exist_ok=True)  # Create the directory if it doesn't exist
 
         # Extract barcode data from the file
