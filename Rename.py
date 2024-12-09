@@ -15,6 +15,7 @@ class MyHandler(FileSystemEventHandler):
         destination_dir = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
         finished_dir = 'C:\\Users\\Public\\Documents\\WavesFinished'  # Define the finished directory
         os.makedirs(destination_dir, exist_ok=True)  # Create the directory if it doesn't exist
+        os.makedirs(finished_dir, exist_ok=True)  # Create the finished directory if it doesn't exist
 
         # Extract barcode data from the file
         barcode_data = self.extract_barcode(event.src_path)
@@ -29,17 +30,20 @@ class MyHandler(FileSystemEventHandler):
                 base_name = os.path.splitext(new_name)[0]
                 timestamp = time.strftime("%Y%m%d%H%M%S")
                 new_name = f"{base_name}_{timestamp}{file_extension}"
-                destination_path = os.path.join(destination_dir, new_name)            
+                destination_path = os.path.join(destination_dir, new_name)
 
             # Copy and rename the file to the destination directory
             shutil.copy(event.src_path, destination_path)
             print(f"File copied and renamed to: {destination_path}")
 
-            # Convert PNG to PDF if necessary
+            # Convert PNG to PDF if necessary and move to finished directory
             if file_extension.lower() == '.png':
                 pdf_path = self.convert_png_to_pdf(destination_path)
                 if pdf_path:
                     print(f"PNG converted to PDF: {pdf_path}")
+                    self.move_to_finished(pdf_path, finished_dir)
+            elif file_extension.lower() == '.pdf':
+                self.move_to_finished(destination_path, finished_dir)
         else:
             print("No barcode detected in the file.")
 
@@ -101,8 +105,6 @@ class MyHandler(FileSystemEventHandler):
             print(f"File moved to: {os.path.join(finished_dir, os.path.basename(file_path))}")
         except Exception as e:
             print(f"Error moving file to finished directory: {e}")
-
-    
 
 def main():
     path = 'C:\\Users\\Public\\Documents\\Waves'  # I have a testing directory setup in my laptop
