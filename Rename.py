@@ -9,6 +9,7 @@ class myhandler(fileSystemEventHandler):
 
 def main():
     path = 'C:\Users\Public\Documents\Waves' #I have a testing directory setup in my laptop
+    os.makedirs(path, exist_ok=True)  # Create the directory if it doesn't exist
     event_handler = myhandler()
     observer = Observer()
     observer.schedule(event_handler, path, recursive=true)
