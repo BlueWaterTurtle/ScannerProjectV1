@@ -1,11 +1,12 @@
 #program for monitoring a folder and renaming any new files that enter the directory
+import os
 import time
-from watchdog.observers import observer
-from watchdog.events import filesystemeventhandler
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
-class MyHandler(fileSystemEventHandler):
+class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
-        print(f"new file created: {event.src_path}")
+        print(f"New file created: {event.src_path}")
 
 def main():
     path = 'C:\\Users\Public\\Documents\\Waves' #I have a testing directory setup in my laptop
@@ -18,7 +19,7 @@ def main():
     try:
         while True:
             time.sleep(1)
-    except KeyboardInterupt:
+    except KeyboardInterrupt:
         observer.stop()
     observer.join()
 
