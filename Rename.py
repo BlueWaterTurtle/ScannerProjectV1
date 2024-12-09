@@ -33,6 +33,13 @@ class MyHandler(FileSystemEventHandler):
             # Copy and rename the file to the destination directory
             shutil.copy(event.src_path, destination_path)
             print(f"File copied and renamed to: {destination_path}")
+
+            # Convert PNG to PDF if necessary
+            if file_extension.lower() == '.png':
+                pdf_path = self.convert_png_to_pdf(destination_path)
+                if pdf_path:
+                    print(f"PNG converted to PDF: {pdf_path}")
+                    
         else:
             print("No barcode detected in the file.")
 
