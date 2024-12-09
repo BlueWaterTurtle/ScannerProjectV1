@@ -7,6 +7,7 @@ from watchdog.events import FileSystemEventHandler
 from pyzbar.pyzbar import decode
 from PIL import Image
 import fitz  # PyMuPDF
+import io
 
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
@@ -50,6 +51,8 @@ class MyHandler(FileSystemEventHandler):
         except Exception as e:
             print(f"Error extracting barcode from image: {e}")
             return None
+        finally:
+            img.close()
 
     def extract_barcode_from_pdf(self, file_path):
         try:
@@ -65,6 +68,8 @@ class MyHandler(FileSystemEventHandler):
         except Exception as e:
             print(f"Error extracting barcode from PDF: {e}")
             return None
+        finally:
+            doc.close()
 
 def main():
     path = 'C:\\Users\\Public\\Documents\\Waves'  # I have a testing directory setup in my laptop
