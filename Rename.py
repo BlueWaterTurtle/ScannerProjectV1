@@ -23,6 +23,13 @@ class MyHandler(FileSystemEventHandler):
             new_name = f"{barcode_data}{file_extension}"
             destination_path = os.path.join(destination_dir, new_name)
 
+            # Check if file already exists and append a unique identifier if necessary
+            if os.path.exists(destination_path):
+                base_name = os.path.splitext(new_name)[0]
+                timestamp = time.strftime("%Y%m%d%H%M%S")
+                new_name = f"{base_name}_{timestamp}{file_extension}"
+                destination_path = os.path.join(destination_dir, new_name)            
+
             # Copy and rename the file to the destination directory
             shutil.copy(event.src_path, destination_path)
             print(f"File copied and renamed to: {destination_path}")
