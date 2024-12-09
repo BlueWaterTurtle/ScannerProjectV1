@@ -39,7 +39,6 @@ class MyHandler(FileSystemEventHandler):
                 pdf_path = self.convert_png_to_pdf(destination_path)
                 if pdf_path:
                     print(f"PNG converted to PDF: {pdf_path}")
-                    
         else:
             print("No barcode detected in the file.")
 
@@ -84,6 +83,16 @@ class MyHandler(FileSystemEventHandler):
             return None
         finally:
             doc.close()
+
+    def convert_png_to_pdf(self, png_path):
+        try:
+            img = Image.open(png_path)
+            pdf_path = os.path.splitext(png_path)[0] + '.pdf'
+            img.save(pdf_path, 'PDF', resolution=100.0)
+            return pdf_path
+        except Exception as e:
+            print(f"Error converting PNG to PDF: {e}")
+            return None
 
 def main():
     path = 'C:\\Users\\Public\\Documents\\Waves'  # I have a testing directory setup in my laptop
