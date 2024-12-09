@@ -8,7 +8,7 @@ class myhandler(fileSystemEventHandler):
         print(f"new file created: {event.src_path}")
 
 def main():
-    path = 'C:\Users\Public\Documents\Waves' #I have a testing directory setup in my laptop
+    path = 'C:\\Users\Public\\Documents\\Waves' #I have a testing directory setup in my laptop
     os.makedirs(path, exist_ok=True)  # Create the directory if it doesn't exist
     event_handler = myhandler()
     observer = Observer()
