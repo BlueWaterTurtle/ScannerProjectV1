@@ -12,7 +12,7 @@ import io
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
         print(f"New file created: {event.src_path}")
-        destination_dir = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
+        destination_dir1 = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
         os.makedirs(destination_dir, exist_ok=True)  # Create the directory if it doesn't exist
 
         # Extract barcode data from the file
@@ -93,6 +93,15 @@ class MyHandler(FileSystemEventHandler):
         except Exception as e:
             print(f"Error converting PNG to PDF: {e}")
             return None
+
+    def move_to_finished(self, file_path, finished_dir):
+        try:
+            shutil.move(file_path, finished_dir)
+            print(f"File moved to: {os.path.join(finished_dir, os.path.basename(file_path))}")
+        except Exception as e:
+            print(f"Error moving file to finished directory: {e}")
+
+    
 
 def main():
     path = 'C:\\Users\\Public\\Documents\\Waves'  # I have a testing directory setup in my laptop
