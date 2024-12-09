@@ -16,7 +16,7 @@ class MyHandler(FileSystemEventHandler):
         file_name, file_extension = os.path.splitext(os.path.basename(event.src_path))    # Extracting file name and extension
 
          # Define the new name and path
-        new_name = f"{file_name}_renamed{file_extension}"
+        new_name = f"{file_name}_renamed{file_extension}"                                 # I'll need to remove or change the "_renamed" part as currently this will append "-renamed" to the file. 
         destination_path = os.path.join(destination_dir, new_name)
 
 
