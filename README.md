@@ -1,0 +1,1 @@
+I've figured out how to rename files and successfully added the code. Now I need to figure out how to duplicate and name the file. I'll have to do this in a new directory as the "waves" directory will trigger the "rename" code if I add anything to it. 
