@@ -3,7 +3,7 @@ import time
 from watchdog.observers import observers
 from watchdog.events import filesystemeventhandler
 
-class myhandler(fileSystemEventHandler):
+class MyHandler(fileSystemEventHandler):
     def on_created(self, event):
         print(f"new file created: {event.src_path}")
 
@@ -12,7 +12,7 @@ def main():
     os.makedirs(path, exist_ok=True)  # Create the directory if it doesn't exist
     event_handler = myhandler()
     observer = Observers()
-    observer.schedule(event_handler, path, recursive=true)
+    observer.schedule(event_handler, path, recursive=True)
     observer.start()
 
     try:
