@@ -48,14 +48,16 @@ def main():
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
+    print("Observer started. Monitoring directory for changes...")
 
     try:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
+        print("Keyboard interrupt received. Stopping observer...")
         observer.stop()
     observer.join()
+    print("Observer stopped.")
 
 if __name__ == "__main__":
     main()
-input("Press Enter to exit...")
