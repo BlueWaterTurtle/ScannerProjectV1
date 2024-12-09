@@ -56,8 +56,8 @@ def main():
     except KeyboardInterrupt:
         print("Keyboard interrupt received. Stopping observer...")
         observer.stop()
-    observer.join()
-    print("Observer stopped.")
+   # observer.join()
+   # print("Observer stopped.")
 
 if __name__ == "__main__":
     main()
