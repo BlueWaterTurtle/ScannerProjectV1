@@ -1,6 +1,6 @@
 #program for monitoring a folder and renaming any new files that enter the directory
 import time
-from watchdog.observers import observer
+from watchdog.observers import observers
 from watchdog.events import filesystemeventhandler
 
 class myhandler(fileSystemEventHandler):
