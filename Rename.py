@@ -3,21 +3,21 @@ import time
 from watchdog.observers import observer
 from watchdog.events import filesystemeventhandler
 
-class myhandler(filesystemeventhandler):
+class myhandler(fileSystemEventHandler):
     def on_created(self, event):
-        print(f"new file created: {ecent.src_path}")
+        print(f"new file created: {event.src_path}")
 
 def main():
     path = 'C:\Users\Public\Documents\Waves' #I have a testing directory setup in my laptop
     event_handler = myhandler()
-    observer = observer()
-    observer.scheduler(event_handler, path, recursive=true)
+    observer = Observer()
+    observer.schedule(event_handler, path, recursive=true)
     observer.start()
 
     try:
-        while true:
+        while True:
             time.sleep(1)
-    except keyboardinterupt:
+    except KeyboardInterupt:
         observer.stop()
     observer.join()
 
