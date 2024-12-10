@@ -11,6 +11,7 @@ import io
 
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
+        time.sleep(5)         #I had to add a small delay at the beginning, the scanner may have been preventing the script from running, so I added the delay to allow the scanner to finish with the file before this script takes over.
         print(f"New file created: {event.src_path}")
         destination_dir = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
         finished_dir = 'C:\\Users\\Public\\Documents\\WavesFinished'  # Define the finished directory
