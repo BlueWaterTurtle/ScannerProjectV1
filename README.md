@@ -15,3 +15,5 @@ Finally the document is converted to .PDF and copied to the folder "C:\users\pub
 Future versions should look to delete the documents in the "Waves" and "finishedWaves" folders after they're done being processed. Currently they'll need to be manually deleted to prevent storage capacity issues. 
 
 I could probably reduce the delay as low as 1 or 2 seconds without issue, but, more testing will be required. 
+
+I should test this branch before adding any more to the project. 
