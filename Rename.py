@@ -1,4 +1,3 @@
-# Program for monitoring a folder and renaming any new files that enter the directory
 import os
 import time
 import shutil
@@ -8,43 +7,46 @@ from pyzbar.pyzbar import decode
 from PIL import Image
 import fitz  # PyMuPDF
 import io
+import configparser
+
+# Read configuration
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+SOURCE_DIR = config['directories']['source_dir']
+DESTINATION_DIR = config['directories']['destination_dir']
+FINISHED_DIR = config['directories']['finished_dir']
 
 class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
-        time.sleep(5)         #I had to add a small delay at the beginning, the scanner may have been preventing the script from running, so I added the delay to allow the scanner to finish with the file before this script takes over.
+        time.sleep(5)  # Delay to allow the scanner to finish
         print(f"New file created: {event.src_path}")
-        destination_dir = 'C:\\Users\\Public\\Documents\\ProcessedWaves'  # Define the destination directory
-        finished_dir = 'C:\\Users\\Public\\Documents\\WavesFinished'  # Define the finished directory
-        os.makedirs(destination_dir, exist_ok=True)  # Create the directory if it doesn't exist
-        os.makedirs(finished_dir, exist_ok=True)  # Create the finished directory if it doesn't exist
+        os.makedirs(DESTINATION_DIR, exist_ok=True)
+        os.makedirs(FINISHED_DIR, exist_ok=True)
 
         # Extract barcode data from the file
         barcode_data = self.extract_barcode(event.src_path)
         if barcode_data:
-            # Define the new name and path
             file_extension = os.path.splitext(event.src_path)[1]
             new_name = f"{barcode_data}{file_extension}"
-            destination_path = os.path.join(destination_dir, new_name)
+            destination_path = os.path.join(DESTINATION_DIR, new_name)
 
-            # Check if file already exists and append a unique identifier if necessary
             if os.path.exists(destination_path):
                 base_name = os.path.splitext(new_name)[0]
                 timestamp = time.strftime("%Y%m%d%H%M%S")
                 new_name = f"{base_name}_{timestamp}{file_extension}"
-                destination_path = os.path.join(destination_dir, new_name)
+                destination_path = os.path.join(DESTINATION_DIR, new_name)
 
-            # Copy and rename the file to the destination directory
             shutil.copy(event.src_path, destination_path)
             print(f"File copied and renamed to: {destination_path}")
 
-            # Convert PNG to PDF if necessary and move to finished directory
             if file_extension.lower() == '.png':
                 pdf_path = self.convert_png_to_pdf(destination_path)
                 if pdf_path:
                     print(f"PNG converted to PDF: {pdf_path}")
-                    self.move_to_finished(pdf_path, finished_dir)
+                    self.move_to_finished(pdf_path, FINISHED_DIR)
             elif file_extension.lower() == '.pdf':
-                self.move_to_finished(destination_path, finished_dir)
+                self.move_to_finished(destination_path, FINISHED_DIR)
         else:
             print("No barcode detected in the file.")
 
@@ -108,11 +110,10 @@ class MyHandler(FileSystemEventHandler):
             print(f"Error moving file to finished directory: {e}")
 
 def main():
-    path = 'C:\\Users\\Public\\Documents\\Waves'  # I have a testing directory setup in my laptop
-    os.makedirs(path, exist_ok=True)  # Create the directory if it doesn't exist
+    os.makedirs(SOURCE_DIR, exist_ok=True)
     event_handler = MyHandler()
     observer = Observer()
-    observer.schedule(event_handler, path, recursive=True)
+    observer.schedule(event_handler, SOURCE_DIR, recursive=True)
     observer.start()
     print("Observer started. Monitoring directory for changes...")
 
