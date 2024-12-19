@@ -8,6 +8,12 @@ from PIL import Image
 import fitz  # PyMuPDF
 import io
 import configparser
+import logging
+
+# Configure logging
+logging.basicConfig(filename='file_monitor.log',
+                    level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Read configuration
 config = configparser.ConfigParser()
@@ -21,6 +27,7 @@ class MyHandler(FileSystemEventHandler):
     def on_created(self, event):
         time.sleep(5)  # Delay to allow the scanner to finish
         print(f"New file created: {event.src_path}")
+        logging.info(f"New file created: {event.src_path}")
         os.makedirs(DESTINATION_DIR, exist_ok=True)
         os.makedirs(FINISHED_DIR, exist_ok=True)
 
@@ -30,7 +37,8 @@ class MyHandler(FileSystemEventHandler):
             file_extension = os.path.splitext(event.src_path)[1]
             new_name = f"{barcode_data}{file_extension}"
             destination_path = os.path.join(DESTINATION_DIR, new_name)
-
+            logging.info(f"New file created: {event.src_path}")
+            
             if os.path.exists(destination_path):
                 base_name = os.path.splitext(new_name)[0]
                 timestamp = time.strftime("%Y%m%d%H%M%S")
@@ -39,16 +47,19 @@ class MyHandler(FileSystemEventHandler):
 
             shutil.copy(event.src_path, destination_path)
             print(f"File copied and renamed to: {destination_path}")
+            logging.info(f"File copied and renamed to: {destination_path}")
 
             if file_extension.lower() == '.png':
                 pdf_path = self.convert_png_to_pdf(destination_path)
                 if pdf_path:
                     print(f"PNG converted to PDF: {pdf_path}")
+                    logging.info(f"PNG converted to PDF: {pdf_path}")
                     self.move_to_finished(pdf_path, FINISHED_DIR)
             elif file_extension.lower() == '.pdf':
                 self.move_to_finished(destination_path, FINISHED_DIR)
         else:
             print("No barcode detected in the file.")
+            logging.warning("No barcode detected in the file.")
 
     def extract_barcode(self, file_path):
         try:
