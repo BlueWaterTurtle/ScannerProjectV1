@@ -12,6 +12,7 @@ The document is set to be saved as .PNG because the barcode reading library was 
 The script will wait 5 seconds and scan the image for barcodes and decode/store the information then add a copy to the folder "C:\users\public\documents\processedWaves", naming the document with the data decoded from the barcode. 
 Finally the document is converted to .PDF and copied to the folder "C:\users\public\documents\finishedWaves" where the user will knows to look for them. 
 
-Future versions should look to delete the documents in the "Waves" and "finishedWaves" folders after they're done being processed. Currently they'll need to be manually deleted to prevent storage capacity issues. 
+Future versions should look to delete the documents in the "Waves" and "finishedWaves" folders after they're done being processed. Currently they'll need to be manually deleted to prevent storage capacity issues.
+I'm thinking I can somehow package all files in the "waves processes" directory at like 7pm. and overwrite it every day. that way we'll store the past day of waves locally. and delete them after 24 hours. 
 
 I could probably reduce the delay as low as 1 or 2 seconds without issue, but, more testing will be required. 
