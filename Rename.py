@@ -5,7 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyzbar.pyzbar import decode
 from PIL import Image
-import fitz  # PyMuPDF
+import PyMuPDF # fitz, I've swapped these around. I had Fitz as the import, I'll probably need to find where "fitz" is called below and modify that.
 import io
 import configparser
 import logging
