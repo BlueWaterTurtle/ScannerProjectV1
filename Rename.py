@@ -1,4 +1,4 @@
-TODO: I'm toying with the idea of creating a second script to handle backups and deleting the working directories of this script. 
+#TODO: I'm toying with the idea of creating a second script to handle backups and deleting the working directories of this script. 
 
 
 
