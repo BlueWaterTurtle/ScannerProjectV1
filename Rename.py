@@ -1,3 +1,7 @@
+TODO: I'm toying with the idea of creating a second script to handle backups and deleting the working directories of this script. 
+
+
+
 # Program for monitoring a folder and renaming any new files that enter the directory
 import os
 import time
