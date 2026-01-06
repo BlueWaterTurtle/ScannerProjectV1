@@ -1,5 +1,5 @@
 Resurrected: I've spent some time refactoring the script in this language. I've added cleanup functionality as well as packaged the script into a standalone .exe, this project is complete as far as I'm concerned. I'll stand by, keeping an eye out for bugs. 
-
+To be clear, the "scanAndRenameWithCleanup.py" is the new file, the old rename.py is depricated. 
 
 ~~Depricated: I'm reworking this functionality in Java(scannerprojectV2). Both projects may actually become redundant if the new WMS rolls out soon. I'll focus on other projects for the time being. This one is doing it's job in production for now. I can continue to support the live deployments until I see where our roll out path takes us.~~
 
