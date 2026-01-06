@@ -1,4 +1,7 @@
-Depricated: I'm reworking this functionality in Java(scannerprojectV2). Both projects may actually become redundant if the new WMS rolls out soon. I'll focus on other projects for the time being. This one is doing it's job in production for now. I can continue to support the live deployments until I see where our roll out path takes us. 
+Resurrected: I've spent some time refactoring the script in this language. I've added cleanup functionality as well as packaged the script into a standalone .exe, this project is complete as far as I'm concerned. I'll stand by, keeping an eye out for bugs. 
+
+
+~~Depricated: I'm reworking this functionality in Java(scannerprojectV2). Both projects may actually become redundant if the new WMS rolls out soon. I'll focus on other projects for the time being. This one is doing it's job in production for now. I can continue to support the live deployments until I see where our roll out path takes us.~~
 
 I've figured out how to rename files and successfully added the code. Now I need to figure out how to duplicate and name the file. I'll have to do this in a new directory as the "waves" directory will trigger the "rename" code if I add anything to it. 
 
